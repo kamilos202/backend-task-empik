@@ -30,7 +30,8 @@ public class UserService {
     }
 
     public User getUserByLogin(String login) {
-        return fetchUserFromGitHub(login).orElseThrow();
+        return fetchUserFromGitHub(login).orElseThrow(() -> new IllegalStateException(
+                String.format("User with login %s not found", login)));
     }
 
     private Optional<User> fetchUserFromGitHub(String login) {

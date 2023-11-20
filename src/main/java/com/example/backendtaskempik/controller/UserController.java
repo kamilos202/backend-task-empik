@@ -3,6 +3,7 @@ package com.example.backendtaskempik.controller;
 import com.example.backendtaskempik.model.User;
 import com.example.backendtaskempik.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,8 +22,13 @@ public class UserController {
 
     @GetMapping("/{login}")
     public ResponseEntity<User> getUserByLogin(@PathVariable String login) {
-        User user = userService.getUserByLogin(login);
-        userService.incrementRequestCount(login); // Increment request count and save it to the DB
-        return ResponseEntity.ok(user.withCalculations());
+        try {
+            User user = userService.getUserByLogin(login);
+            userService.incrementRequestCount(login); // Increment request count and save it to the DB
+            return ResponseEntity.ok(user.withCalculations());
+
+        } catch (IllegalStateException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
     }
 }
