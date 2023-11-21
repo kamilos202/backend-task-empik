@@ -21,7 +21,7 @@ public class UserServiceTest {
     private JsonTransformer jsonTransformer;
 
     @Test
-    public void incrementRequestCount_IncrementsInDatabase() {
+    public void incrementRequestCountIncrementsInDatabase() {
         // given
         UserService userService = new UserService(requestRepository, jsonTransformer);
         var login = "testUser";

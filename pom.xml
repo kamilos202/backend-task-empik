@@ -33,6 +33,12 @@
 			<artifactId>spring-boot-starter-web</artifactId>
 			<version>${springboot.version}</version>
 		</dependency>
+		<dependency>
+			<!-- At this moment required only for displaying error page. -->
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+			<version>${springboot.version}</version>
+		</dependency>
 
 		<!-- Database -->
 		<dependency>

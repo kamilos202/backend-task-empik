@@ -35,6 +35,7 @@ public class UserService {
     }
 
     private Optional<User> fetchUserFromGitHub(String login) {
+        logger.debug("Try to fetch the user with the login: {}", login);
         try {
             // Build the GitHub API URL for the specified user
             URI uri = URI.create(String.format("%s/%s", GITHUB_API_BASE_USERS_URL, login));
@@ -57,8 +58,12 @@ public class UserService {
             } else {
                 logger.error("GitHub API request failed with status code: {}", response.statusCode());
             }
-        } catch (IOException | InterruptedException e) {
-           throw new IllegalStateException("Could not fetch the User from GitHub API.", e);
+        } catch (IOException e) {
+            logger.error("IOException while fetching user from GitHub API", e);
+            throw new IllegalStateException("Could not fetch the User from GitHub API.", e);
+        } catch (InterruptedException e) {
+            logger.error("InterruptedException while fetching user from GitHub API", e);
+            throw new IllegalStateException("Fetching user interrupted.", e);
         }
         return Optional.empty();
     }
