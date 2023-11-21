@@ -9,6 +9,9 @@ import com.fasterxml.jackson.databind.annotation.JsonNaming;
 
 import java.time.LocalDateTime;
 
+/**
+ * Record representing a User with specific fields for serialization.
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 @JsonFilter("customUserFilter")
@@ -24,6 +27,11 @@ public record User(
         Integer followers,
         Integer publicRepos) {
 
+    /**
+     * Calculate and return User with additional calculations field.
+     *
+     * @return User with calculations.
+     */
     public User withCalculations() {
         var calculations = (double) 6 / followers() * (2 + publicRepos());
         return new User(id(), login(), name(), type(), avatarUrl(), createdAt(),

@@ -15,11 +15,22 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
     private final UserService userService;
 
+    /**
+     * Constructor to inject UserService dependency.
+     *
+     * @param userService The UserService instance.
+     */
     @Autowired
     public UserController(UserService userService) {
         this.userService = userService;
     }
 
+    /**
+     * Endpoint to get user by login.
+     *
+     * @param login The user's login.
+     * @return ResponseEntity containing the user with calculations.
+     */
     @GetMapping("/{login}")
     public ResponseEntity<User> getUserByLogin(@PathVariable String login) {
         try {
