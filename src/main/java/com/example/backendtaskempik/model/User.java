@@ -33,7 +33,10 @@ public record User(
      * @return User with calculations.
      */
     public User withCalculations() {
-        var calculations = (double) 6 / followers() * (2 + publicRepos());
+        double calculations = 0.0;
+        if (followers() != 0) {
+            calculations = (double) 6 / followers() * (2 + publicRepos());
+        }
         return new User(id(), login(), name(), type(), avatarUrl(), createdAt(),
                 calculations, followers(), publicRepos());
     }
